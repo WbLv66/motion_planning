@@ -16,7 +16,7 @@ public:
     Bfs() = delete;
     /**
      * @brief Constructor for Bfs class
-     * @param grid_map: grid mao
+     * @param grid_map: grid map
      */
     Bfs(const std::vector<std::vector<int>> &grid_map);
     /**

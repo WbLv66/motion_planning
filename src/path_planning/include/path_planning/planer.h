@@ -1,7 +1,7 @@
 /**
  * @file planer.h
  * @author lwb
- * @brief include Node class and base class Plan
+ * @brief Include Node class and base class Plan
  */
 #ifndef PLANER_H
 #define PLANER_H
@@ -68,6 +68,12 @@ public:
      */
     bool operator==(const Node &other) const;
     /**
+     * @brief Overload operator > for Node class
+     * @param other: the node to be added
+     * @return bool: whether this node is greater than the other
+     */
+    bool operator>(const Node &other) const;
+    /**
      * @brief Overload operator + for Node class
      * @param other: the node to be added
      * @return Node: the sum of two nodes
@@ -106,23 +112,60 @@ struct hash<Node> {
 };
 }  // namespace std
 /**
- * @brief Template base class Planer
- * @param T: the type of open_list_
+ * @brief Base class BasePlaner
  * @param grid_map(): grid map, can be used as static variable
  * @param grid_row_(): rows number, can be used as static variable
  * @param grid_col_(): columns number, can be used as static variable
- * @param open_list_: contains nodes which will be visited
- * @param close_list_: contains nodes which have been visited
- * @param grid_path_: the grid path obtained
- * @param current_node_: current node
- * @param next_node_: neighbor node
  * @param four_directions_(): expand to four directions, can be used as static
  * variable
  * @param eight_directions_(): expand to eight directions, can be used as static
  * variable
  */
+class BasePlaner {
+public:
+    /**
+     *@brief Grid map
+     *@return std::vector<std::vector<int>>&: reference to static variable
+     *@details static function which creats static variable
+     */
+    static std::vector<std::vector<int>> &grid_map_();
+    /**
+     *@brief Rows number
+     *@return int&: reference to static variable
+     *@details static function which creats static variable
+     */
+    static int &grid_row_();
+    /**
+     *@brief Columns number
+     *@return int&: reference to static variable
+     *@details static function which creats static variable
+     */
+    static int &grid_col_();
+    /**
+     *@brief Expand to four directions
+     *@return const std::vector<Node> &: reference to static variable
+     *@details static function which creats static variable
+     */
+    static const std::vector<Node> &four_directions_();
+    /**
+     *@brief Expand to eight directions
+     *@return const std::vector<Node> &: reference to static variable
+     *@details static function which creats static variable
+     */
+    static const std::vector<Node> &eight_directions_();
+};
+
+/**
+ * @brief Template class Planer
+ * @param T: the type of open_list_
+ * @param open_list_: contains nodes which will be visited
+ * @param close_list_: contains nodes which have been visited
+ * @param grid_path_: the grid path obtained
+ * @param current_node_: current node
+ * @param next_node_: neighbor node
+ */
 template <class T>
-class Planer {
+class Planer : public BasePlaner {
 public:
     Planer() = delete;
     /**
@@ -142,24 +185,6 @@ public:
      * @details designd using template method pattern
      */
     std::stack<Node> &Plan(const Node &start, const Node &goal);
-    /**
-     *@brief Grid map
-     *@return std::vector<std::vector<int>>&: reference to static variable
-     *@details static function which creats static variable
-     */
-    static std::vector<std::vector<int>> &grid_map_();
-    /**
-     *@brief Rows number
-     *@return int&: reference to static variable
-     *@details static function which creats static variable
-     */
-    static int &grid_row_();
-    /**
-     *@brief Columns number
-     *@return int&: reference to static variable
-     *@details static function which creats static variable
-     */
-    static int &grid_col_();
 
 protected:
     /**
@@ -191,18 +216,6 @@ protected:
     std::stack<Node> grid_path_{};
     Node current_node_{};
     Node next_node_{};
-    /**
-     *@brief Expand to four directions
-     *@return const std::vector<Node> &: reference to static variable
-     *@details static function which creats static variable
-     */
-    static const std::vector<Node> &four_directions_();
-    /**
-     *@brief Expand to eight directions
-     *@return const std::vector<Node> &: reference to static variable
-     *@details static function which creats static variable
-     */
-    static const std::vector<Node> &eight_directions_();
 };
 
 template <class T>
@@ -226,24 +239,6 @@ std::stack<Node> &Planer<T>::Plan(const Node &start, const Node &goal) {
 }
 
 template <class T>
-std::vector<std::vector<int>> &Planer<T>::grid_map_() {
-    static std::vector<std::vector<int>> grid_map_{};
-    return grid_map_;
-}
-
-template <class T>
-int &Planer<T>::grid_row_() {
-    static int grid_row_{};
-    return grid_row_;
-}
-
-template <class T>
-int &Planer<T>::grid_col_() {
-    static int grid_col_{};
-    return grid_col_;
-}
-
-template <class T>
 bool Planer<T>::GetToGoal(const Node &goal) {
     return current_node_ == goal;
 }
@@ -255,21 +250,6 @@ void Planer<T>::PathBacktrack() {
         current_node_ = *(current_node_.parent_);
     }
     grid_path_.push(current_node_);
-}
-
-template <class T>
-const std::vector<Node> &Planer<T>::four_directions_() {
-    static const std::vector<Node> four_directions_{
-        {0, 1, 1}, {1, 0, 1}, {0, -1, 1}, {-1, 0, 1}};
-    return four_directions_;
-}
-
-template <class T>
-const std::vector<Node> &Planer<T>::eight_directions_() {
-    static const std::vector<Node> eight_directions_{
-        {0, 1, 1},  {1, 1, std::sqrt(2)},   {1, 0, 1},  {1, -1, std::sqrt(2)},
-        {0, -1, 1}, {-1, -1, std::sqrt(2)}, {-1, 0, 1}, {-1, 1, std::sqrt(2)}};
-    return eight_directions_;
 }
 
 #endif

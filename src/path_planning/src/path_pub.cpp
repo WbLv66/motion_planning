@@ -6,6 +6,8 @@
 #include <stack>
 
 #include "bfs.h"
+#include "dfs.h"
+#include "dijkstra.h"
 #include "planer.h"
 std::vector<std::vector<int>> kGridMap;
 
@@ -32,8 +34,14 @@ int main(int argc, char **argv) {
         ros::spinOnce();
         rate.sleep();
     }
-    Bfs bfs{kGridMap};
-    std::stack<Node> path = bfs.Plan(start, goal);
+    // Bfs bfs{kGridMap};
+    // std::stack<Node> path = bfs.Plan(start, goal);
+
+    // Dfs dfs{kGridMap};
+    // std::stack<Node> path = dfs.Plan(start, goal);
+
+    Dijkstra dijkstra{kGridMap};
+    std::stack<Node> path = dijkstra.Plan(start, goal);
 
     nav_msgs::Path path_msg;
     path_msg.header.frame_id = "map";

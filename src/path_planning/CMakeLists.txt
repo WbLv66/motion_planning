@@ -28,11 +28,14 @@ include_directories(
 # 添加库
 add_library(planer src/planer.cpp)
 add_library(bfs src/bfs.cpp)
-
+add_library(dfs src/dfs.cpp)
+add_library(dijkstra src/dijkstra.cpp)
 
 add_executable(path_pub src/path_pub.cpp)
 target_link_libraries(path_pub
   ${catkin_LIBRARIES}
   planer
   bfs
+  dfs
+  dijkstra
 )
