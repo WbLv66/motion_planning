@@ -1,0 +1,8 @@
+# 基于那个配置文件
+BasedOnStyle: google
+# 访问说明符的偏移(public private)
+AccessModifierOffset: -4
+#缩进宽度
+IndentWidth: 4
+# 每行字符的限制，0表示没有限制  
+ColumnLimit: 80
