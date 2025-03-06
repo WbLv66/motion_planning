@@ -36,5 +36,8 @@ public:
      *@brief Override function that expand the node
      */
     void ExpandNode() override;
+
+private:
+    std::vector<std::vector<double>> cost_map_;
 };
 #endif

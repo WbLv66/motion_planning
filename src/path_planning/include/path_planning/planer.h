@@ -11,7 +11,6 @@
 #include <stack>
 #include <unordered_set>
 #include <vector>
-
 /**
  * @brief Node class for planning
  * @param row_: row index of the node

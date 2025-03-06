@@ -28,12 +28,13 @@ int main(int argc, char **argv) {
     ros::Subscriber map_sub = node_handle.subscribe("/map", 1, MapCallback);
     ros::Publisher path_pub = node_handle.advertise<nav_msgs::Path>("/path", 1);
     Node start{0, 0, 0};
-    Node goal{5, 5};
+    Node goal{29, 29};
     ros::Rate rate(50);
     while (kGridMap.empty()) {
         ros::spinOnce();
         rate.sleep();
     }
+
     // Bfs bfs{kGridMap};
     // std::stack<Node> path = bfs.Plan(start, goal);
 
