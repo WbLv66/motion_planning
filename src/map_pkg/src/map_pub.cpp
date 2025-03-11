@@ -5,13 +5,7 @@ const int MAP_COL = 30;
 
 const std::vector<std::array<int, 4>> OBS_RECTANGLE = {{8, 6, 14, 12},
                                                        {18, 22, 24, 29}};
-// const std::array<std::array<int, MAP_COL>, MAP_ROW> GRID_MAP = {
-//     {{0, 1, 0, 0, 0, 0},
-//      {0, 1, 0, 1, 0, 0},
-//      {0, 0, 0, 1, 0, 0},
-//      {0, 1, 0, 0, 0, 0},
-//      {0, 1, 0, 1, 1, 0},
-//      {0, 1, 0, 0, 0, 0}}};
+
 int main(int argc, char **argv) {
     ros::init(argc, argv, "map_pub");
     ros::NodeHandle node_handle;

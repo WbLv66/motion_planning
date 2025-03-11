@@ -1,6 +1,6 @@
 /**
  * @file bfs.h
- * @author lwb
+ * @author lwb (wb.lv@qq.com)
  * @brief BFS algorithm
  */
 #ifndef BFS_H
@@ -9,7 +9,7 @@
 
 #include "planer.h"
 /**
- * @brief Bfs class inherits Planer class
+ * @brief Bfs class inherits Planer class, open_list_ is a queue
  */
 class Bfs : public Planer<std::queue<Node>> {
 public:
@@ -18,7 +18,7 @@ public:
      * @brief Constructor for Bfs class
      * @param grid_map: grid map
      */
-    Bfs(const std::vector<std::vector<int>> &grid_map);
+    explicit Bfs(const std::vector<std::vector<int>> &grid_map);
     /**
      * @brief Default destructor override for Bfs class
      */
@@ -27,7 +27,7 @@ public:
      *@brief Override function that initialize the open_list_
      *@param start: start node
      */
-    void Initialization(const Node &start) override;
+    void Initialization() override;
     /**
      *@brief Override function that visit the node
      */

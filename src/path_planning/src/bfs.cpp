@@ -1,7 +1,7 @@
 #include "bfs.h"
 Bfs::Bfs(const std::vector<std::vector<int>> &grid_map)
     : Planer<std::queue<Node>>{grid_map} {}
-void Bfs::Initialization(const Node &start) { open_list_.push(start); }
+void Bfs::Initialization() { open_list_.push(start_node_); }
 void Bfs::VisitNode() {
     current_node_ = open_list_.front();
     open_list_.pop();

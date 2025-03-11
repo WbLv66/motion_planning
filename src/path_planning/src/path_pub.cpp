@@ -5,6 +5,7 @@
 
 #include <stack>
 
+#include "a_star.h"
 #include "bfs.h"
 #include "dfs.h"
 #include "dijkstra.h"
@@ -41,8 +42,11 @@ int main(int argc, char **argv) {
     // Dfs dfs{kGridMap};
     // std::stack<Node> path = dfs.Plan(start, goal);
 
-    Dijkstra dijkstra{kGridMap};
-    std::stack<Node> path = dijkstra.Plan(start, goal);
+    // Dijkstra dijkstra{kGridMap};
+    // std::stack<Node> path = dijkstra.Plan(start, goal);
+
+    AStar a_star{kGridMap};
+    std::stack<Node> path = a_star.Plan(start, goal);
 
     nav_msgs::Path path_msg;
     path_msg.header.frame_id = "map";

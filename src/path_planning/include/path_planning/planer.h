@@ -1,6 +1,6 @@
 /**
  * @file planer.h
- * @author lwb
+ * @author lwb (wb.lv@qq.com)
  * @brief Include Node class and base class Plan
  */
 #ifndef PLANER_H
@@ -38,8 +38,7 @@ public:
      * @param parent: parent node, the default value is nullptr
      */
     Node(int row, int col,
-         double cost_from_start = std::numeric_limits<double>::max(),
-         const Node *parent = nullptr);
+         double cost_from_start = std::numeric_limits<double>::max());
     /**
      * @brief Copy constructor for Node class
      * @param other: the node to be copied
@@ -91,8 +90,8 @@ public:
 
     int row_{};
     int col_{};
-    double cost_to_goal_;
-    double cost_from_start_;
+    double cost_to_goal_{0};
+    double cost_from_start_{};
     const Node *parent_{nullptr};
 };
 
@@ -162,6 +161,8 @@ public:
  * @param grid_path_: the grid path obtained
  * @param current_node_: current node
  * @param next_node_: neighbor node
+ * @param start_node_: start node
+ * @param goal_node_: goal node
  */
 template <class T>
 class Planer : public BasePlaner {
@@ -187,20 +188,24 @@ public:
 
 protected:
     /**
-     *@brief Virtual function that initialize the open_list_
-     *@param start: start node
+     * @brief Set the start and goal node
+     * @param start: start node
+     * @param goal: goal node
      */
-    virtual void Initialization(const Node &start){};
+    void SetStartAndGoal(const Node &start, const Node &goal);
+    /**
+     *@brief Virtual function that initialize the open_list_
+     */
+    virtual void Initialization(){};
     /**
      *@brief Virtual function that visit the node
      */
     virtual void VisitNode(){};
     /**
      *@brief Adjust whether get to goal
-     *@param goal: goal node
      *@return bool: whether get to goal
      */
-    bool GetToGoal(const Node &goal);
+    bool GetToGoal();
     /**
      *@brief Backtrack to obtain path
      */
@@ -215,6 +220,8 @@ protected:
     std::stack<Node> grid_path_{};
     Node current_node_{};
     Node next_node_{};
+    Node start_node_{};
+    Node goal_node_{};
 };
 
 template <class T>
@@ -225,10 +232,11 @@ Planer<T>::Planer(const std::vector<std::vector<int>> &grid_map) {
 }
 template <class T>
 std::stack<Node> &Planer<T>::Plan(const Node &start, const Node &goal) {
-    Initialization(start);
+    SetStartAndGoal(start, goal);
+    Initialization();
     while (!open_list_.empty()) {
         VisitNode();
-        if (GetToGoal(goal)) {
+        if (GetToGoal()) {
             PathBacktrack();
             break;
         }
@@ -238,8 +246,14 @@ std::stack<Node> &Planer<T>::Plan(const Node &start, const Node &goal) {
 }
 
 template <class T>
-bool Planer<T>::GetToGoal(const Node &goal) {
-    return current_node_ == goal;
+void Planer<T>::SetStartAndGoal(const Node &start, const Node &goal) {
+    start_node_ = start;
+    goal_node_ = goal;
+}
+
+template <class T>
+bool Planer<T>::GetToGoal() {
+    return current_node_ == goal_node_;
 }
 
 template <class T>

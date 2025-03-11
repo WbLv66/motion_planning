@@ -30,6 +30,7 @@ add_library(planer src/planer.cpp)
 add_library(bfs src/bfs.cpp)
 add_library(dfs src/dfs.cpp)
 add_library(dijkstra src/dijkstra.cpp)
+add_library(a_star src/a_star.cpp)
 
 add_executable(path_pub src/path_pub.cpp)
 target_link_libraries(path_pub
@@ -38,4 +39,5 @@ target_link_libraries(path_pub
   bfs
   dfs
   dijkstra
+  a_star
 )

@@ -1,7 +1,7 @@
 #include "dfs.h"
 Dfs::Dfs(const std::vector<std::vector<int>> &grid_map)
     : Planer<std::stack<Node>>{grid_map} {}
-void Dfs::Initialization(const Node &start) { open_list_.push(start); }
+void Dfs::Initialization() { open_list_.push(start_node_); }
 void Dfs::VisitNode() {
     current_node_ = open_list_.top();
     open_list_.pop();

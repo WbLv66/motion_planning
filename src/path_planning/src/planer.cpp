@@ -2,11 +2,8 @@
 
 #include <queue>
 
-Node::Node(int row, int col, double cost_from_start, const Node* parent)
-    : row_{row},
-      col_{col},
-      cost_from_start_{cost_from_start},
-      parent_{parent} {}
+Node::Node(int row, int col, double cost_from_start)
+    : row_{row}, col_{col}, cost_from_start_{cost_from_start} {}
 bool Node::operator==(const Node& other) const {
     return (row_ == other.row_ && col_ == other.col_);
 }
