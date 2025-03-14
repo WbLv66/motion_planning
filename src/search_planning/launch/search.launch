@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="search_planning" type="path_pub" name="path_pub" output="screen"/>
+    <node pkg="map_pkg" type="map_pub" name="map_pub" />
+</launch>
