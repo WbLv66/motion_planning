@@ -25,7 +25,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
 )
-
+find_package(Eigen3 REQUIRED)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES sample_planning
@@ -39,11 +39,12 @@ include_directories(
 )
 # 添加库
 add_library(prm src/prm.cpp)
-
+target_link_libraries(prm Eigen3::Eigen)
 
 
 # add_executable(path_pub src/path_pub.cpp)
 # target_link_libraries(path_pub
 #   ${catkin_LIBRARIES}
+#   Eigen3::Eigen
   
 # )
